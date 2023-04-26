@@ -24,101 +24,143 @@
 
 <br />
 
-<h1 align="middle">Final Project: Melting Materials</h1>
+<h1 align="middle">CS 184 Final Project Milestone: Non-Photorealistic Shaders</h1>
 <h2 align="middle">Rishi Arjun, Camila Picanco Mesquita, Vivian Liu, Annie Lin</h2>
 <br>
 
     <div class="padded">
-
-
         <h2 align="middle">What we have accomplished:</h2>
 
-        <p>Our original idea for our final project was to create a simulation of melting materials building off our project 4 codebase. We were able to get a simple fluid simulation working and showing up in our GUI for project 4 using the Position Based Fluids algorithm, but we were unable to get it to look like actual water, which would be problematic for us later down the road because in addition to fluids, we also needed to implement heat transfer and phase changes for melting materials, which are all very dependent on having a good visual representation. This means we can’t rely on our project 4 code base as we originally intended to and the majority of resources we found on the internet that was also about implementing fluid and melting simulation required the use of applications such as CUDA and GPUs, which we don’t have access to.</p>
+        <p>Our original idea for our final project was to create a simulation of melting materials building off our project 4 codebase. We were able to get a simple fluid simulation working and showing up in our GUI for project 4 using the Position Based Fluids algorithm, but we were unable to get it to look like actual water, which would be problematic for us later down the road because in addition to fluids, we also needed to implement heat transfer and phase changes for melting materials, which are all very dependent on having a good visual representation. We also realized we can’t rely on our project 4 code base as we originally intended to and the majority of resources we found on the internet on implementing fluid and melting simulation required the use of applications such as CUDA and using GPUs, which we don’t have access to.</p>
 
+        <div align="middle">
+        <table style="width:100%">
+            <tr align="middle">
+                <td>
+                    <img src="images/fluid1.png" align="middle" width="600px"/>
+                    <figcaption></figcaption>
+                </td>
+                <td>
+                    <img src="images/fluid2.png" align="middle" width="600px"/>
+                    <figcaption></figcaption>
+                </td>
+            </tr>
+            <br>
+        </table>
+    </div>
 
         <p>We also realized the scale of our project was much bigger than we initially anticipated and so after consulting with staff, we have decided to pivot to another project. 
 
 
 
 
-Our new project idea is to implement shaders for non-photorealistic rendering since we are generally interested in simulation and materials shading. We are currently looking into Gooch Shading and cosine based palette shading.
-</p>
+            Our new project idea is to implement shaders for non-photorealistic rendering since we are generally interested in simulation and materials shading. To get better acquainted with non-photorealistic shading, we are currently looking into Gooch Shading and Cosine Based Palette Shading.
+        </p>
         <br>
 
-        <h2 align="middle">Problem Description</h2>
+        <h2 align="middle">Preliminary Results:
+</h2>
 
-        <p>We want to implement a simulation of melting materials, such as ice or butter. The problem we are trying to solve is figuring out how to visually represent the transitional dynamics behind the phase transitions of materials. A common approach to representing phase transitions is to use a modified fluid solver, which is optimal for demonstrating Newtonian-fluids but more difficult for representing solid material behaviors.</p>
-        <p>The difficulty in simulating melting materials stems from the fact we want to simulate a wide variety of material behaviors without making our implementation overly complex.</p>
-        <p>We are planning to solve this problem of simulating melting materials by building a heat model that uses physics to represent phase transitions. We plan to vary the thermal parameters of materials, such as heat conductivity, heat capacity, and latent heat, to control heat flow and influence the dynamic behavior of melting.</p>
+        <p>Here are some images from each type of shading so far:</p>
 
-        <br>
+        <div align="middle">
+        <table style="width:100%">
+            <tr align="middle">
+                <td>
+                    <img src="images/palette1.png" align="middle" width="600px"/>
+                    <figcaption>Palette Shading on pinned2.json</figcaption>
+                </td>
+                <td>
+                    <img src="images/palette2.png" align="middle" width="600px"/>
+                    <figcaption>Palette Shading on pinned4.json</figcaption>
+                </td>
+            </tr>
+            <br>
+            <br>
+            <tr align="middle">
+                <td>
+                    <img src="images/palette.gif" align="middle" width="700px"/>
+                    <figcaption>Palette Shading GIF on pinned2.json</figcaption>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <p>Cosine Based Palette Shading allows us to add color variation to an object which we implemented using the cosine equation:</p>
+    <p align = "middle">color(t) = a + b * cos(2*pi*(c*t+d))</p>
+    <p>Where t is the normalized palette index or domain, c is the number of times cosine oscillates, d is the phase, and where a, b, c, and d are RGB 3D vectors.</p>
+    <p>Palette Shading is interesting because it is dependent on the positions of x and y. Notice how as the cloth is falling down, it changes colors.</p>
+    <p>The cosine based method is more efficient compared to other methods of palette shading such as by using linear interpolation or triangle waves.</p>
+
+
+
+     <div align="middle">
+        <table style="width:100%">
+            <tr align="middle">
+                <td>
+                    <img src="images/gooch1.png" align="middle" width="600px"/>
+                    <figcaption>Gooch Shading on sphere.json</figcaption>
+                </td>
+                <td>
+                    <img src="images/gooch2.png" align="middle" width="600px"/>
+                    <figcaption>Gooch Shading on sphere.json</figcaption>
+                </td>
+            </tr>
+            <br>
+        </table>
+    </div>
+
+    <p>Gooch Shading gives the appearance of a "cool to warm" shading effect. The warm colors typically indicate surfaces are facing toward the light source, while cool colors represent surfaces facing away from the light source.
+    </p>   
+
+    <p>
+        We implemented Gooch Shading in two passes where first all objects in the scene are drawn with the "cool to warm" shading, then secondly the object’s edges are rendered in black. The benefit of Gooch Shading is that it allows shading to occur in mid-tones to preserve visual prominence of edge lines and highlights, which is helpful for the non-photorealistic look we want to go for in our shaders.
+    </p>
+
+    <br>
         
-        <h2 align="middle">Goals and Deliverables</h2>
+        <h2 align="middle">Reflection on Our Progress Relative to Plan:</h2>
 
-        <h3 align="middle">What We Plan to Deliver</h3>
+        <p>
+            Our group has been faced with a setback. We discovered our original project proposal for melting simulation was too ambitious with the given time we had in the sense that there were more moving parts than we initially anticipated. For example, once we figured out how to modify our project 4 code base to support particle-based fluids, we realized we also needed to implement heat transfer and implement phase changes which we found out would require us to largely start from scratch rather than being able to use our project 4 code. 
 
-        <p>Using the paper on “The Material Point Method for the Physics-Based Simulation of Solids and Fluids,” we are planning to implement a heat model using our project 4 codebase as a start that is capable of simulating ice melting. We plan to use various models from project 3-2, such as the bunny, spheres, dragon, etc., and apply a “glass” or ice-like material to it, and melt the models using our heat model.</p>
-        <p>Our deliverables will consist of a video of our simulation and rendered images detailing steps of the process.</p>
-        <p>We will measure the quality/performance of our system by checking the simulation time and eyeing the simulation to see if it looks “realistic.”</p>
+Our new plan is to implement shaders for non-photorealistic rendering. We are currently looking into Gooch Shading and cosine based palette shading. Relative to our new plan, we feel we are mostly on track despite having our setback for our first project idea. With careful planning, we believe we can get our project done on time and we also have a better idea now of specific steps we need to take.
 
+        </p>
         <br>
 
-        <h3 align="middle">What We Hope to Deliver</h3>
+        <h2 align="middle">Current/New Work Plan:
+</h3>
 
-        <p>If we are able to finish our deliverables in time, we plan to implement other simulations by applying different materials to models we already have (i.e lava, melting chocolate, and melting butter). In addition, we would add an interactive feature to our demo that would allow the user to adjust temperature to affect the rate of melting in the simulation.</p>
 
-        <br>
-
-        <h3 align="middle">Schedule</h3>
-
-        <p>Week 1 (4/3)</p>
+        <p>4/24-4/30</p>
         <ul>
-            <li>Research</li>
-            <li>Create project website</li>
-            <li>Submit project proposal</li>
+            <li>Updating Project 4 GUI to support new shaders</li>
+            <li>Finding/creating more complex meshes to use for shading in Project 4 and to support .obj files
+            </li>
+            <li>Figuring out which shader(s) we want for our final project</li>
+            <li>Gooch Shading: make outline show up and the shading effect to be more noticable</li>
+            <li>Palette Shading: make colors appear more visually aesthetic on the sphere</li>
+
 
         </ul>
-        <p>Week 2 (4/10)</p>
+        <p>5/1-5/4</p>
         <ul>
-            <li>Review proposal feedback</li>
-            <li>Start building code framework</li>
+            <li>Preparing for final presentation</li>
+            <li>Finalize shader(s)</li>
+            <li>Adding in any additional reach goals if time permits</li>
         </ul>
-        <p>Week 3 (4/17)</p>
-        <ul>
-            <li>Create milestone video, slides, and status report webpage</li>
-            <li>Continue to work on code implementation (heat flow and phase transition)</li>
-        </ul>
-        <p>Week 3 (4/17)</p>
-        <ul>
-            <li>Finalize video, webpage report, and code</li>
-            <li>Submit milestone video (April 25th)</li>
-        </ul>
-        <p>Week 5 (5/1)</p>
-        <ul>
-            <li>Incorporate milestone feedback into presentation and video</li>
-            <li>Prepare for the final presentation on May 4th</li>
-            <li>Submit video, webpage report, and code</li>
-        </ul>
-        <br>
-
-        <h3 align="middle">Resources</h3>
-        <p><b>Papers</b></p>
-        <p><a href="https://www.math.ucla.edu/~jteran/student_thesis/jiang.pdf">The Material Point Method for the Physics-Based Simulation of Solids and Fluids</a></p>
-        <p><a href="https://media.disneyanimation.com/uploads/production/publication_asset/108/asset/siggraph2014_melt.pdf">Augmented MPM for phase-change and varied materials</a></p>
-        <p><a href="https://faculty.cc.gatech.edu/~turk/my_papers/melt.pdf">Melting and Flowing</a></p>
-        <br>
-
-        <p><b>Starter Code</b></p>
-        <p><a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj4">Project 4 Codebase</a></p>
-        <p><a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj3-1">Project 3-1 Codebase</a></p>
-        <p><a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj3-2">Project 3-2 Codebase</a></p>
-        <br>
-
-        <p><b>Computing Platform/Hardware</b></p>
-        <p>MacOS, 2.6 GHz 6-Core Intel Core i7, Intel UHD Graphics 630</p>
-
-        <br>
         
+        <br>        
+
+        <h2 align="middle">Slides:</h2>
+        <h2 align="middle"> <a href="https://docs.google.com/presentation/d/1HW2WhMGeUyGviyjkuv4foCiRPUYGIYaNLb_dBqv33GU/edit?usp=sharing">Slides Link</a></h2>
+
+
+        <h2 align="middle">Video:</h2>
+        <h2 align="middle"> <a href="https://drive.google.com/file/d/1ls2Xe4rTulAUizEdtjv6E3rd--HLzZZF/view?usp=sharing">Video Link</a></h2>
+
+
 
     </div>
 </body>

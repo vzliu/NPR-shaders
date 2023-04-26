@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>
+    body {
+        padding: 100px;
+        width: 1000px;
+        margin: auto;
+        text-align: left;
+        font-weight: 300;
+        font-family: 'Open Sans', sans-serif;
+        color: #121212;
+    }
+    h1, h2, h3, h4 {
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+</style>
+<title>CS 184 Final Project Milestone</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
+</head>
+
+<body>
+
+<br />
+
+<h1 align="middle">Final Project: Melting Materials</h1>
+<h2 align="middle">Rishi Arjun, Camila Picanco Mesquita, Vivian Liu, Annie Lin</h2>
+<br>
+
+    <div class="padded">
+
+
+        <h2 align="middle">What we have accomplished:</h2>
+
+        <p>Our original idea for our final project was to create a simulation of melting materials building off our project 4 codebase. We were able to get a simple fluid simulation working and showing up in our GUI for project 4 using the Position Based Fluids algorithm, but we were unable to get it to look like actual water, which would be problematic for us later down the road because in addition to fluids, we also needed to implement heat transfer and phase changes for melting materials, which are all very dependent on having a good visual representation. This means we can’t rely on our project 4 code base as we originally intended to and the majority of resources we found on the internet that was also about implementing fluid and melting simulation required the use of applications such as CUDA and GPUs, which we don’t have access to.</p>
+
+
+        <p>We also realized the scale of our project was much bigger than we initially anticipated and so after consulting with staff, we have decided to pivot to another project. 
+
+
+
+
+Our new project idea is to implement shaders for non-photorealistic rendering since we are generally interested in simulation and materials shading. We are currently looking into Gooch Shading and cosine based palette shading.
+</p>
+        <br>
+
+        <h2 align="middle">Problem Description</h2>
+
+        <p>We want to implement a simulation of melting materials, such as ice or butter. The problem we are trying to solve is figuring out how to visually represent the transitional dynamics behind the phase transitions of materials. A common approach to representing phase transitions is to use a modified fluid solver, which is optimal for demonstrating Newtonian-fluids but more difficult for representing solid material behaviors.</p>
+        <p>The difficulty in simulating melting materials stems from the fact we want to simulate a wide variety of material behaviors without making our implementation overly complex.</p>
+        <p>We are planning to solve this problem of simulating melting materials by building a heat model that uses physics to represent phase transitions. We plan to vary the thermal parameters of materials, such as heat conductivity, heat capacity, and latent heat, to control heat flow and influence the dynamic behavior of melting.</p>
+
+        <br>
+        
+        <h2 align="middle">Goals and Deliverables</h2>
+
+        <h3 align="middle">What We Plan to Deliver</h3>
+
+        <p>Using the paper on “The Material Point Method for the Physics-Based Simulation of Solids and Fluids,” we are planning to implement a heat model using our project 4 codebase as a start that is capable of simulating ice melting. We plan to use various models from project 3-2, such as the bunny, spheres, dragon, etc., and apply a “glass” or ice-like material to it, and melt the models using our heat model.</p>
+        <p>Our deliverables will consist of a video of our simulation and rendered images detailing steps of the process.</p>
+        <p>We will measure the quality/performance of our system by checking the simulation time and eyeing the simulation to see if it looks “realistic.”</p>
+
+        <br>
+
+        <h3 align="middle">What We Hope to Deliver</h3>
+
+        <p>If we are able to finish our deliverables in time, we plan to implement other simulations by applying different materials to models we already have (i.e lava, melting chocolate, and melting butter). In addition, we would add an interactive feature to our demo that would allow the user to adjust temperature to affect the rate of melting in the simulation.</p>
+
+        <br>
+
+        <h3 align="middle">Schedule</h3>
+
+        <p>Week 1 (4/3)</p>
+        <ul>
+            <li>Research</li>
+            <li>Create project website</li>
+            <li>Submit project proposal</li>
+
+        </ul>
+        <p>Week 2 (4/10)</p>
+        <ul>
+            <li>Review proposal feedback</li>
+            <li>Start building code framework</li>
+        </ul>
+        <p>Week 3 (4/17)</p>
+        <ul>
+            <li>Create milestone video, slides, and status report webpage</li>
+            <li>Continue to work on code implementation (heat flow and phase transition)</li>
+        </ul>
+        <p>Week 3 (4/17)</p>
+        <ul>
+            <li>Finalize video, webpage report, and code</li>
+            <li>Submit milestone video (April 25th)</li>
+        </ul>
+        <p>Week 5 (5/1)</p>
+        <ul>
+            <li>Incorporate milestone feedback into presentation and video</li>
+            <li>Prepare for the final presentation on May 4th</li>
+            <li>Submit video, webpage report, and code</li>
+        </ul>
+        <br>
+
+        <h3 align="middle">Resources</h3>
+        <p><b>Papers</b></p>
+        <p><a href="https://www.math.ucla.edu/~jteran/student_thesis/jiang.pdf">The Material Point Method for the Physics-Based Simulation of Solids and Fluids</a></p>
+        <p><a href="https://media.disneyanimation.com/uploads/production/publication_asset/108/asset/siggraph2014_melt.pdf">Augmented MPM for phase-change and varied materials</a></p>
+        <p><a href="https://faculty.cc.gatech.edu/~turk/my_papers/melt.pdf">Melting and Flowing</a></p>
+        <br>
+
+        <p><b>Starter Code</b></p>
+        <p><a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj4">Project 4 Codebase</a></p>
+        <p><a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj3-1">Project 3-1 Codebase</a></p>
+        <p><a href="https://cs184.eecs.berkeley.edu/sp23/docs/proj3-2">Project 3-2 Codebase</a></p>
+        <br>
+
+        <p><b>Computing Platform/Hardware</b></p>
+        <p>MacOS, 2.6 GHz 6-Core Intel Core i7, Intel UHD Graphics 630</p>
+
+        <br>
+        
+
+    </div>
+</body>
+</html>
